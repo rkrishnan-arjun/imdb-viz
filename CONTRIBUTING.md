@@ -73,4 +73,4 @@ Before you submit a pull request, check that it meets these guidelines:
 ## Code of Conduct
 
 Please note that the `imdb-viz` project is released with a
-[Code of Conduct](https://github.com/UBC-MDS/IMDB_Viz_R/blob/main/CODE_OF_CONDUCT.md). By contributing to this project you agree to abide by its terms.
+[Code of Conduct](https://github.com/rkrishnan-arjun/imdb-viz/blob/main/CODE_OF_CONDUCT.md). By contributing to this project you agree to abide by its terms.
