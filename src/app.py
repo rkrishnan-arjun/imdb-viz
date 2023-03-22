@@ -103,7 +103,6 @@ app.layout = html.Div(
 )
 def update_certs(genre):
     movies_grouped = imdb_df
-    # [(imdb_df["Released_Year"] >= "2009") & (imdb_df["Released_Year"] <= "2022")]
     certs = movies_grouped[movies_grouped["Genre"] == genre]["Certificate"].unique()
     return ([{"label": cert, "value": cert} for cert in certs], certs[0])
 
@@ -137,6 +136,14 @@ def update_gross_plot(genre):
     # Update the layout
     fig.update_layout(
         xaxis_title="Gross Revenue (Million Dollars)",
+        xaxis=dict(
+            showgrid=False,
+            linecolor="black",
+            ticks="outside",
+            tickcolor="black",
+            tickwidth=1,
+            ticklen=5,
+        ),
         yaxis_title="Movies",
         showlegend=False,
         plot_bgcolor="white",
@@ -168,6 +175,7 @@ def update_direct_plot(genre, cert):
         y="Director",
         orientation="h",
         title=f"Top Directors",
+        color="Director",
         text=grp_df["Director"].tolist(),
         color_continuous_scale=px.colors.sequential.Plasma,
     )
@@ -183,17 +191,8 @@ def update_direct_plot(genre, cert):
         yaxis_title="Directors",
         showlegend=False,
         title="<b>Top Directors</b>",
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
         font=dict(color="black"),
-        yaxis=dict(
-            showgrid=False,
-            linecolor="black",
-            ticks="outside",
-            tickcolor="black",
-            tickwidth=1,
-            ticklen=5,
-        ),
+        plot_bgcolor="white",
         xaxis=dict(
             showgrid=False,
             linecolor="black",
@@ -216,12 +215,8 @@ def update_direct_plot(genre, cert):
     ],
 )
 def update_line_plot(genre, cert):
-    # Filter the data by year and country
     grp_df = imdb_df[(imdb_df["Genre"] == genre) & (imdb_df["Certificate"] == cert)]
     movies_grouped = grp_df
-    # [
-    #     (grp_df["Released_Year"] >= "2009") & (grp_df["Released_Year"] <= "2022")
-    # ]
     movies_grouped = (
         movies_grouped.groupby("Released_Year").size().reset_index(name="count")
     )
@@ -233,15 +228,13 @@ def update_line_plot(genre, cert):
         y="count",
         title=f"Trend of number of movies released over the years",
     )
-    # Remove y-axis tick labels
 
     # Update the layout
     fig.update_layout(
         xaxis_title="Year",
         yaxis_title="Count of movies",
         showlegend=False,
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="white",
         yaxis=dict(
             showgrid=False,
             linecolor="black",
