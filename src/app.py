@@ -103,7 +103,7 @@ app.layout = html.Div(
 )
 def update_certs(genre):
     movies_grouped = imdb_df
-    [(imdb_df["Released_Year"] >= "2009") & (imdb_df["Released_Year"] <= "2022")]
+    # [(imdb_df["Released_Year"] >= "2009") & (imdb_df["Released_Year"] <= "2022")]
     certs = movies_grouped[movies_grouped["Genre"] == genre]["Certificate"].unique()
     return ([{"label": cert, "value": cert} for cert in certs], certs[0])
 
@@ -158,7 +158,7 @@ def update_direct_plot(genre, cert):
     grp_df = (
         imdb_df[(imdb_df["Genre"] == genre) & (imdb_df["Certificate"] == cert)]
         .sort_values("IMDB_Rating", ascending=False)
-        .head(3)
+        .head(5)
     )
     grp_df = grp_df[grp_df["Director"].notna()].sort_values("IMDB_Rating")
     # Create a bar chart
@@ -218,9 +218,10 @@ def update_direct_plot(genre, cert):
 def update_line_plot(genre, cert):
     # Filter the data by year and country
     grp_df = imdb_df[(imdb_df["Genre"] == genre) & (imdb_df["Certificate"] == cert)]
-    movies_grouped = grp_df[
-        (grp_df["Released_Year"] >= "2009") & (grp_df["Released_Year"] <= "2022")
-    ]
+    movies_grouped = grp_df
+    # [
+    #     (grp_df["Released_Year"] >= "2009") & (grp_df["Released_Year"] <= "2022")
+    # ]
     movies_grouped = (
         movies_grouped.groupby("Released_Year").size().reset_index(name="count")
     )
@@ -246,7 +247,6 @@ def update_line_plot(genre, cert):
             linecolor="black",
             ticks="outside",
             tickcolor="black",
-            range=[5, 9.5],
             tickwidth=1,
             ticklen=5,
         ),
@@ -255,7 +255,6 @@ def update_line_plot(genre, cert):
             linecolor="black",
             ticks="outside",
             tickcolor="black",
-            range=[5, 9.5],
             tickwidth=1,
             ticklen=5,
         ),
