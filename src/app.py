@@ -43,38 +43,54 @@ app.layout = html.Div(
                 )
             ]
         ),
-        dbc.Row([
-        dbc.Col(html.H4("Select a Genre", style={"font-weight": "bold"}),
-                    width=2),
-        dbc.Col(dcc.Dropdown(
-            id="genre-dropdown",
-            options=[
-                {"label": genre, "value": genre} for genre in imdb_df["Genre"].unique()
-            ],
-            value=imdb_df["Genre"].iloc[0],
+        dbc.Row(
+            [
+                dbc.Col(
+                    html.H4("Select a Genre", style={"font-weight": "bold"}), width=2
+                ),
+                dbc.Col(
+                    dcc.Dropdown(
+                        id="genre-dropdown",
+                        options=[
+                            {"label": genre, "value": genre}
+                            for genre in imdb_df["Genre"].unique()
+                        ],
+                        value=imdb_df["Genre"].iloc[0],
+                    ),
+                    width=3,
+                    style={"padding": 0},
+                ),
+            ]
         ),
+        html.Br(),
+        dcc.Graph(
+            id="bar-plot",
+            style={"backgroundColor": "rgba(0,0,0,0)"},
+            figure={
+                "layout": {
+                    "height": 500,
+                }
+            },
+        ),
+        html.Br(),
+        dbc.Row(
+            [
+                dbc.Col(
+                    html.H4("Select a Certificate", style={"font-weight": "bold"}),
                     width=3,
-        style={"padding": 0})
-        ]),
+                ),
+                dbc.Col(
+                    dcc.Dropdown(id="cert-dropdown"), width=3, style={"padding": 0}
+                ),
+            ]
+        ),
         html.Br(),
-        dcc.Graph(id="bar-plot", style={"backgroundColor": "rgba(0,0,0,0)"}, figure={"layout": {
-            "height": 500, 
-        }}),
-        html.Br(),
-        dbc.Row([
-        dbc.Col(
-        html.H4("Select a Certificate", style={"font-weight": "bold"}),
-                    width=3),
-        dbc.Col(
-        dcc.Dropdown(id="cert-dropdown"),
-                    width=3,
-        style={"padding": 0})
-        ]),
-        html.Br(),
-        dbc.Row([dbc.Col(dcc.Graph(id="director-plot")),dbc.Col(dcc.Graph(id="line-plot"))]),
+        dbc.Row(
+            [dbc.Col(dcc.Graph(id="director-plot")), dbc.Col(dcc.Graph(id="line-plot"))]
+        ),
     ],
     className="container",
-    style={"backgroundColor": "lightgreen"},
+    style={"backgroundColor": "lightblue"},
 )
 
 
@@ -87,9 +103,7 @@ app.layout = html.Div(
 )
 def update_certs(genre):
     movies_grouped = imdb_df
-    [
-        (imdb_df["Released_Year"] >= "2009") & (imdb_df["Released_Year"] <= "2022")
-    ]
+    [(imdb_df["Released_Year"] >= "2009") & (imdb_df["Released_Year"] <= "2022")]
     certs = movies_grouped[movies_grouped["Genre"] == genre]["Certificate"].unique()
     return ([{"label": cert, "value": cert} for cert in certs], certs[0])
 
@@ -106,7 +120,7 @@ def update_gross_plot(genre):
         .head(10)
     )
     grp_df = grp_df[grp_df["Gross"].notna()].sort_values("Gross")
-    # Create a bar chart 
+    # Create a bar chart
     fig = px.bar(
         grp_df,
         x="Gross",
@@ -122,19 +136,23 @@ def update_gross_plot(genre):
     fig.update_traces(textfont_size=13)
     # Update the layout
     fig.update_layout(
-        xaxis_title="Gross Revenue (Million Dollars)", yaxis_title="Movies", showlegend=False,
-        plot_bgcolor='white',
-        
-        title='<b>Gross Revenue of Top 10 movies by rating</b>'
+        xaxis_title="Gross Revenue (Million Dollars)",
+        yaxis_title="Movies",
+        showlegend=False,
+        plot_bgcolor="white",
+        title="<b>Gross Revenue of Top 10 movies by rating</b>",
     )
 
     return fig
 
+
 # Define the callback to update the plot
 @app.callback(
     dash.dependencies.Output("director-plot", "figure"),
-    [dash.dependencies.Input("genre-dropdown", "value"),
-     dash.dependencies.Input("cert-dropdown", "value")],
+    [
+        dash.dependencies.Input("genre-dropdown", "value"),
+        dash.dependencies.Input("cert-dropdown", "value"),
+    ],
 )
 def update_direct_plot(genre, cert):
     grp_df = (
@@ -143,7 +161,7 @@ def update_direct_plot(genre, cert):
         .head(3)
     )
     grp_df = grp_df[grp_df["Director"].notna()].sort_values("IMDB_Rating")
-    # Create a bar chart 
+    # Create a bar chart
     fig = px.bar(
         grp_df,
         x="IMDB_Rating",
@@ -151,36 +169,41 @@ def update_direct_plot(genre, cert):
         orientation="h",
         title=f"Top Directors",
         text=grp_df["Director"].tolist(),
-        color_continuous_scale=px.colors.sequential.Plasma
+        color_continuous_scale=px.colors.sequential.Plasma,
     )
     # Remove y-axis tick labels
 
     fig.update_yaxes(showticklabels=False)
-    
+
     fig.update_traces(textfont_size=17)
 
     # Update the layout
     fig.update_layout(
-        xaxis_title="IMDB Rating", yaxis_title="Directors", showlegend=False,        
-        title='<b>Top Directors</b>',
+        xaxis_title="IMDB Rating",
+        yaxis_title="Directors",
+        showlegend=False,
+        title="<b>Top Directors</b>",
         plot_bgcolor="rgba(0,0,0,0)",
         paper_bgcolor="rgba(0,0,0,0)",
-    font=dict(color='black'),
-        yaxis=dict(showgrid=False,
-        linecolor='black',
-        ticks='outside',
-        tickcolor='black',
-        tickwidth=1,
-        ticklen=5),
-        xaxis=dict(showgrid=False,
-        linecolor='black',
-        ticks='outside',
-        tickcolor='black',
-        range=[5, 9.5],
-        tickwidth=1,
-        ticklen=5)
+        font=dict(color="black"),
+        yaxis=dict(
+            showgrid=False,
+            linecolor="black",
+            ticks="outside",
+            tickcolor="black",
+            tickwidth=1,
+            ticklen=5,
+        ),
+        xaxis=dict(
+            showgrid=False,
+            linecolor="black",
+            ticks="outside",
+            tickcolor="black",
+            range=[5, 9.5],
+            tickwidth=1,
+            ticklen=5,
+        ),
     )
-
 
     return fig
 
@@ -203,7 +226,12 @@ def update_line_plot(genre, cert):
     )
 
     # Create a line plot
-    fig = px.line(movies_grouped, x="Released_Year", y="count", title=f"Trend of number of movies released over the years")
+    fig = px.line(
+        movies_grouped,
+        x="Released_Year",
+        y="count",
+        title=f"Trend of number of movies released over the years",
+    )
     # Remove y-axis tick labels
 
     # Update the layout
@@ -213,21 +241,25 @@ def update_line_plot(genre, cert):
         showlegend=False,
         plot_bgcolor="rgba(0,0,0,0)",
         paper_bgcolor="rgba(0,0,0,0)",
-        yaxis=dict(showgrid=False,
-        linecolor='black',
-        ticks='outside',
-        tickcolor='black',
-        range=[5, 9.5],
-        tickwidth=1,
-        ticklen=5),
-        xaxis=dict(showgrid=False,
-        linecolor='black',
-        ticks='outside',
-        tickcolor='black',
-        range=[5, 9.5],
-        tickwidth=1,
-        ticklen=5),
-        title='<b>Trend of number of movies released over the years</b>'
+        yaxis=dict(
+            showgrid=False,
+            linecolor="black",
+            ticks="outside",
+            tickcolor="black",
+            range=[5, 9.5],
+            tickwidth=1,
+            ticklen=5,
+        ),
+        xaxis=dict(
+            showgrid=False,
+            linecolor="black",
+            ticks="outside",
+            tickcolor="black",
+            range=[5, 9.5],
+            tickwidth=1,
+            ticklen=5,
+        ),
+        title="<b>Trend of number of movies released over the years</b>",
     )
 
     # Increase the thickness of the line
