@@ -26,18 +26,22 @@ Click [here](https://github.com/UBC-MDS/IMDB_Viz_R/blob/main/reports/proposal.md
 
 ## Dashboard Description
 
-Our dashboard showcases interactive visualizations which recommends top rated movies for the movie enthusiasts and can assist them in exploring top directors in the movie industry and the trend of the number of movies produced over the years. This dashboard contains a single landing page where users can use drop-down lists on the page to select the genre and certificate of interest.
+Our dashboard showcases interactive visualizations which recommend top-rated movies for movie enthusiasts and can assist them in exploring top directors in the movie industry and the trend of the number of movies produced over the years. This dashboard contains a single landing page where users can use drop-down lists to select the genre and certificate of interest.
 
-First of all, the user can select preferred genre from the first drop-down. Based on this selection, dashboard displays
+First of all, the user can select a preferred genre from the drop-down. Based on this selection, the dashboard displays the following -
 
-- `Gross Revenue of top Rated movies by Genre`: A bar chart that directly lists out the highest rated movies for the primary selected genre with their respective gross revenue.
+- `Gross Revenue of top 10 movies by rating`: A bar chart that directly lists out the highest-rated movies for the primary selected genre with their respective gross revenue.
+
+![](img/page1.png)
 
 Another option that users have is to select their preferred certificate from the second drop down which will be updated based on the genre input. Based on the `genre` and `certificate`, the dashboard displays the following -
 
-- `Top directors`: A bar chart that directly lists out the directors that have directed top rated movies
-- `Trend of count of movies over the years`: A line plot that shows the trend of count of movies produced over the years
+- `Top directors`: A bar chart that directly lists out the directors that have directed top-rated movies
+- `Trend of the count of movies over the years`: A line plot that shows the trend of the count of movies produced over the years
 
-Using these visualizations, the users can understand if the top rated movies are actually worth their time based on the gross revenue it made. They can also know who are the top directors in the movie industry and how many movies were produced in the selected genre and certificate over the years. This dashboard is aimed at providing users with an easy-to-use and efficient way to find and select the movies they'll love.
+![](img/page2.png)
+
+Using these visualizations, the users can understand if the top-rated movies are actually worth their time based on the gross revenue they made. They can also know who are the top directors in the movie industry and how many movies were produced in the selected genre and certificates over the years. This dashboard is aimed at providing users with an easy-to-use and efficient way to find and select the movies they'll love.
 
 ## Usage
 
