@@ -6,7 +6,7 @@ If you love great movies and need some help figuring out which one to watch next
 
 [Link to the imdb-viz app](https://imdb-viz-app.onrender.com)
 
-To read more about our wonderful app, feel free to jump over to one of the sections below or continue scrolling down.
+To read more about our app, feel free to jump over to one of the sections below or continue scrolling down.
 
 - [Motivation and Purpose](#motivation-and-purpose)
 - [Proposal](#proposal)
@@ -26,7 +26,7 @@ Click [here](https://github.com/UBC-MDS/IMDB_Viz_R/blob/main/reports/proposal.md
 
 ## Dashboard Description
 
-Our dashboard contains a single landing page where users can use drop-down lists on the page to select the genre and certificate of interest. This dashboard showcases interactive visualizations which recommends top rated movies for the movie enthusiasts and can assist them in exploring top directors in the movie industry and the trend of the number of movies produced over the years.
+Our dashboard showcases interactive visualizations which recommends top rated movies for the movie enthusiasts and can assist them in exploring top directors in the movie industry and the trend of the number of movies produced over the years. This dashboard contains a single landing page where users can use drop-down lists on the page to select the genre and certificate of interest.
 
 First of all, the user can select preferred genre from the first drop-down. Based on this selection, dashboard displays
 
