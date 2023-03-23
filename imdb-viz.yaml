@@ -1,0 +1,10 @@
+name: 'imdb-viz'
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ipykernel
+  - dash=2.8.*
+  - dash-bootstrap-components
+  - pandas
+  - plotly
