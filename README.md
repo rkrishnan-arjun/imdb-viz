@@ -1,4 +1,4 @@
-# IMDB_Viz_R
+# IMDb VISUALIZATION
 
 Welcome and thank you for visiting the `imdb-viz` project repository!
 
